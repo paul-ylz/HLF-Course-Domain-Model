@@ -1,14 +1,14 @@
-// Returns all flights 
+// Returns all flights
 query AllFlights {
   description: "Returns all flights in the registry"
-  statement:  
+  statement:
     SELECT  org.acme.airline.flight.Flight
 }
 
 // Uses the Limit and Skip
 query AllFlightsSkipLimit {
   description: "Limits the number of flights returned"
-  statement:  
+  statement:
     SELECT  org.acme.airline.flight.Flight
       LIMIT  _$limit
         SKIP   _$skip
@@ -17,7 +17,7 @@ query AllFlightsSkipLimit {
 // Selects flights based on the origin and destination
 query FlightsOriginAndDestination {
   description: "Returns all flights in the registry"
-  statement:  
+  statement:
     SELECT  org.acme.airline.flight.Flight
       WHERE   (route.origin == _$origin_airport AND route.destination  == _$destination_airport )
 }
@@ -25,10 +25,30 @@ query FlightsOriginAndDestination {
 // Selects flights based on the origin, destination & exact Schedule datetime (yep its not good :)
 query FlightsOnOriginDestinationDate {
   description: "Returns all flights in the registry"
-  statement:  
+  statement:
     SELECT  org.acme.airline.flight.Flight
     WHERE (route.origin == _$origin_airport AND route.destination  == _$destination_airport AND route.schedule == _$date)
 }
 
+// Returns all aircraft
+query AllAircrafts {
+  description: "Returns all aircrafts in the registry"
+  statement:
+    SELECT org.acme.airline.aircraft.Aircraft
+}
 
+// Return aircrafts based on ownership types
+query AircraftByOwnershipType {
+  description: "Returns aircraft based on ownership type"
+  statement:
+    SELECT org.acme.airline.aircraft.Aircraft
+    WHERE (ownershipType == _$ownership_type)
+}
 
+// Returns aircraft fitting seat count criteria
+query AircraftBySeatCount {
+  description: "Returns aircrafts based on seat configuration"
+  statement:
+    SELECT org.acme.airline.aircraft.Aircraft
+    WHERE (firstClassSeats >= _$first_class_seats AND businessClassSeats >= _$business_class_seats AND economyClassSeats >= _$economy_class_seats)
+}

@@ -12,7 +12,7 @@ asset Flight identified by flightNumber {
 concept Route {
   o   String    origin
   o   String    destination
-  o   DateTime  schedule  
+  o   DateTime  schedule
 }
 
 /** Data for testin **
