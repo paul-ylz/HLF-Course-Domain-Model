@@ -27,13 +27,14 @@ composer participant add -d '{"$class":"org.acme.airline.participant.ACMENetwork
 - Will Smith (wills) works in the Logistics department
 composer participant add -d '{"$class":"org.acme.airline.participant.ACMEPersonnel","participantKey":"wills","contact":{"$class":"org.acme.airline.participant.Contact","fName":"Will","lname":"Smith","email":"will.smith@acmeairline.com"}, "department":"Logistics"}' -c admin@airlinev9
 
+composer participant add -d '{"$class":"org.acme.airline.participant.ACMEPersonnel","participantKey":"susanm","contact":{"$class":"org.acme.airline.participant.Contact","fName":"Susan","lname":"Milo","email":"susan.milo@acmeairline.com"}, "department":"Accounting"}' -c admin@airlinev9
 #5 Issue the identities
 composer identity issue -u johnd -a org.acme.airline.participant.ACMENetworkAdmin#johnd -c admin@airlinev9
-
+composer identity issue -u susanm -a org.acme.airline.participant.ACMEPersonnel#susanm -c admin@airlinev9
 composer card delete -n johnd@airlinev9
 composer card import -f johnd@airlinev9.card
 
-composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c admin@airlinev9 
+composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c admin@airlinev9
 
 composer card delete -n wills@airlinev9
 composer card import -f wills@airlinev9.card
