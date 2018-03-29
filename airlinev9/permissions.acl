@@ -1,11 +1,3 @@
-// This Rule is needed for all Participants
-rule AcmeNetworkAdminPermissionSystem {
-  description: "can READ the system registries"
-  participant: "ANY"
-  operation: READ
-  resource: "org.hyperledger.composer.system.**"
-  action: ALLOW  
-}
 
 // #1 Allow the 'System Network Admin' to carry out Identities management
 //    and Network operations
@@ -14,24 +6,41 @@ rule NetworkControlPermission {
   participant: "org.hyperledger.composer.system.NetworkAdmin"
   operation: ALL
   resource: "org.hyperledger.composer.system.*"
-  action: ALLOW  
+  action: ALLOW
 }
 rule ParticipantRegistryControlPermission {
   description:  "give admin ALL access to ACME participant types"
   participant: "org.hyperledger.composer.system.NetworkAdmin"
   operation: ALL
   resource: "org.acme.airline.participant.*"
-  action: ALLOW  
+  action: ALLOW
+}
+
+// Lecture 54 exercise: Simple rule for ACMENetworkAdmin
+// This Rule is needed for all Participants
+rule AcmeNetworkAdminPermissionSystem {
+  description: "can READ the system registries"
+  participant: "ANY"
+  operation: READ
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
 }
 
 
+rule AcmeNetworkAdminPermissionAcme {
+  description: "give ACMENetworkAdmin read all access on ACME resources"
+  participant: "org.acme.airline.participant.ACMENetworkAdmin"
+  operation: READ
+  resource: "org.acme.airline.**"
+  action: ALLOW
+}
 
 // #2 Exercise Solution
 // ====================
 // UN-COMMENT the RULES To Test
 // ACMENetworkAdmin Participant can carry out
-//    READ operations on ACME resources 
-//    READ the system resources  
+//    READ operations on ACME resources
+//    READ the system resources
 //    Participant: "org.acme.airline.participant.ACMENetworkAdmin"
 /********* Exercise Solution **
 rule AcmeNetworkAdminPermissionAcme {
@@ -51,7 +60,7 @@ rule AcmeParticipantPermissionHistorian {
   participant: "org.acme.airline.participant.ACMEPersonnel"
   operation: CREATE
   resource: "org.hyperledger.composer.system.HistorianRecord"
-  action: ALLOW  
+  action: ALLOW
 }
 
 // #3.2 Needed for Creating the "CreateFlight" transaction
@@ -68,7 +77,7 @@ rule ACMEPersonnelPermission {
 // This is an example of recursive access to the resource
 // This rule will work the same way as the one above but
 // It gives the transaction access to both Flight & Aircraft
-// To try it out simply UNCOMMENT statements below & COMMENT 
+// To try it out simply UNCOMMENT statements below & COMMENT
 // the rule above
 /****
 rule ACMEPersonnelPermission {
