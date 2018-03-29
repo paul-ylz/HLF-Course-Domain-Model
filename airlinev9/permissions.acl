@@ -65,12 +65,23 @@ rule AcmeParticipantPermissionHistorian {
 
 // #3.2 Needed for Creating the "CreateFlight" transaction
 // Only employees @ ACME can execute this transaction
+// rule ACMEPersonnelPermission {
+//   description: "only ACME personnel can create a flight"
+//   participant: "org.acme.airline.participant.ACMEPersonnel"
+//   operation: CREATE
+//   resource: "org.acme.airline.flight.*"
+//   transaction: "org.acme.airline.flight.CreateFlight"
+//   action: ALLOW
+// }
+
+// Exercise: Conditional Rule for ACMEPersonnel (Lecture 56)
 rule ACMEPersonnelPermission {
   description: "only ACME personnel can create a flight"
-  participant: "org.acme.airline.participant.ACMEPersonnel"
+  participant(p): "org.acme.airline.participant.ACMEPersonnel"
   operation: CREATE
   resource: "org.acme.airline.flight.*"
   transaction: "org.acme.airline.flight.CreateFlight"
+  condition: (p.department === 'Logistics')
   action: ALLOW
 }
 
