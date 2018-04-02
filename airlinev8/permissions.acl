@@ -35,4 +35,11 @@ rule AcmeNetworkAdminPermissionAcme {
   action: ALLOW
 }
 
+rule NetworkFlightPermission {
+  description:  "give admin ALL access to flight resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+   resource: "org.acme.airline.flight.*"
+  action: ALLOW
+}
 // Lecture 56 exercise : Permissions on transaction and conditions

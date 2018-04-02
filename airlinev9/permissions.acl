@@ -63,6 +63,29 @@ rule AcmeParticipantPermissionHistorian {
   action: ALLOW
 }
 
+rule ACMENetworkAdminAircraftPermission {
+  description: "can add Aircraft to the Aircraft Registry"
+  participant: "org.acme.airline.participant.ACMENetworkAdmin"
+  operation: CREATE
+  resource: "org.acme.airline.aircraft.*"
+  action: ALLOW
+}
+
+rule NetworkAdminAircraftPermission {
+  description: "can add Aircraft to the Aircraft Registry"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: CREATE
+  resource: "org.acme.airline.aircraft.*"
+  action: ALLOW
+}
+
+rule NetworkAdminFlightPermission {
+  description: "can add Flights to the Flight Registry"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: CREATE
+  resource: "org.acme.airline.flight.*"
+  action: ALLOW
+}
 // #3.2 Needed for Creating the "CreateFlight" transaction
 // Only employees @ ACME can execute this transaction
 // rule ACMEPersonnelPermission {
